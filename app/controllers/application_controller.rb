@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::Base
   before_action :year
 
+  # TODO: TEMPORANEI E DI SVILUPPO
+  ENV['QUOTA'] = '15'
   # Variabili globali
   ANNO_DI_CATECHISMO = {
     1 => 'Confessione',
@@ -11,7 +13,7 @@ class ApplicationController < ActionController::Base
   
   $ANNO_DI_CATECHISMO = ANNO_DI_CATECHISMO
   
-  $select_anno = [[1, ANNO_DI_CATECHISMO[1]], [2, ANNO_DI_CATECHISMO[2]], [3, ANNO_DI_CATECHISMO[3]], [4, ANNO_DI_CATECHISMO[4]]] 
+  $select_anno = [[ANNO_DI_CATECHISMO[1], 1], [ANNO_DI_CATECHISMO[2], 2], [ANNO_DI_CATECHISMO[3], 3], [ANNO_DI_CATECHISMO[4], 4]] 
 
   # Metodi globali
   def admin?

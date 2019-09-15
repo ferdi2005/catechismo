@@ -1,2 +1,44 @@
-<h1>Subscription#new</h1>
-<p>Find me in app/views/subscription/new.html.erb</p>
+<h1 class="title is-2">Nuova iscrizione all'anno di catechismo per <%= @person.nome %> <%= @person.cognome %></h1>
+
+<p>Verificare l'anno in alto, sarà utilizzato come anno catechistico di riferimento</p>
+
+<br />
+
+<%= form_with model: @subscription, url: subscription_path, method: :post do |f|%>
+
+  <%= f.hidden_field :person_id, value: @person.id.to_s %>
+  <%= f.hidden_field :year_id, value: @year.id.to_s %>
+  <%= f.hidden_field :day_id, value: @day.id.to_s %>
+  <div class="field">
+    <%= f.label :anno, class: 'label' %>
+    <div class="select">
+      <%= f.select :anno, $select_anno %>
+    </div>
+  </div>
+
+  <div class="field">
+    <%= f.label :quota, class: 'label' %>
+    <%= f.number_field :quota, value: ENV['QUOTA'].to_i, class: 'input', style: 'width: 100px;'%>
+  </div>
+
+  <div class="field">
+    <%= f.label 'Quota versata?', class: 'label' %>
+    <%= f.check_box :quota_versata%>
+  </div>
+  <p>Ok di default e così dovrebbe essere</p>
+  <script>
+    $('#subscription_quota_versata').attr('checked', 't');
+  </script>
+
+  <div class="field">
+    <%= f.label 'Gruppo', class: 'label' %>
+    <div class="select">
+      <%= f.select(:group_id, [''] + Group.all.sort_by {|group| group.anno }.map { |group| ["#{group.nome} - #{$ANNO_DI_CATECHISMO[group.anno]}", group.id] }) %>
+    </div>
+  </div>
+  <p>Viene trasferito automaticamente alla persona</p>
+
+    t.bigint "day_id", null: false
+
+
+<% end %>
