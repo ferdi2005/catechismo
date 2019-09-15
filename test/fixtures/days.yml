@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  apertura: 2019-09-15 14:59:06
+  chiusura: 2019-09-15 14:59:06
+  totale_consegnato: 1
+
+two:
+  apertura: 2019-09-15 14:59:06
+  chiusura: 2019-09-15 14:59:06
+  totale_consegnato: 1

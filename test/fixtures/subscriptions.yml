@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  person: one
+  year: one
+  group: one
+  anno: 1
+  quota: 1
+  quota_versata: false
+  day: one
+
+two:
+  person: two
+  year: two
+  group: two
+  anno: 1
+  quota: 1
+  quota_versata: false
+  day: two

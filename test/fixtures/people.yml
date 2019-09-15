@@ -1,0 +1,33 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  nome: MyString
+  cognome: MyString
+  battesimo: 2019-09-15
+  parrocchia: MyString
+  data_di_nascita: 2019-09-15
+  luogo_di_nascita: MyString
+  padre: MyString
+  madre: MyString
+  telefono: 1
+  cellulare: 1
+  indirizzo: MyString
+  comune: MyString
+  cap: 1
+  group: one
+
+two:
+  nome: MyString
+  cognome: MyString
+  battesimo: 2019-09-15
+  parrocchia: MyString
+  data_di_nascita: 2019-09-15
+  luogo_di_nascita: MyString
+  padre: MyString
+  madre: MyString
+  telefono: 1
+  cellulare: 1
+  indirizzo: MyString
+  comune: MyString
+  cap: 1
+  group: two
