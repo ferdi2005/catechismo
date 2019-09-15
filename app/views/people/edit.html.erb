@@ -1,6 +1,6 @@
-<h1>Editing Person</h1>
+<h1 class="title">Modifica anagrafica <%= @person.nome %> <%= @person.cognome %></h1>
 
 <%= render 'form', person: @person %>
 
-<%= link_to 'Show', @person %> |
-<%= link_to 'Back', people_path %>
+<%= link_to 'Scheda anagrafica', @person %> |
+<%= link_to 'Torna indietro', people_path %>

@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+
+<h1 class="title">Gruppi di catechismo</h1>
+
+<%= link_to 'Crea gruppo', new_group_path, class: 'button is-success'%>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Nome</th>
+      <th>Anni</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @groups.each do |group| %>
+      <tr>
+        <td><%= group.nome %></td>
+        <td><%= ANNO_DI_CATECHISMO[group.anno] %></td>
+        <td><%= link_to 'Modifica', edit_group_path(group) %></td>
+        <td><%= link_to 'Elimina', group, method: :delete, data: { confirm: 'Sicuro?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>

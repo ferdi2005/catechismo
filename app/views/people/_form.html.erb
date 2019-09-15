@@ -12,76 +12,82 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :nome %>
-    <%= form.text_field :nome %>
+    <%= form.label :nome, class: 'label' %>
+    <%= form.text_field :nome, class: 'input' %>
   </div>
 
   <div class="field">
-    <%= form.label :cognome %>
-    <%= form.text_field :cognome %>
+    <%= form.label :cognome, class: 'label' %>
+    <%= form.text_field :cognome, class: 'input' %>
   </div>
 
   <div class="field">
-    <%= form.label :battesimo %>
-    <%= form.date_select :battesimo %>
+    <%= form.label :battesimo, class: 'label' %>
+    <%= form.date_select :battesimo, class: 'input', start_year: Date.today.year - 14 %>
   </div>
 
   <div class="field">
-    <%= form.label :parrocchia %>
-    <%= form.text_field :parrocchia %>
+    <%= form.label :parrocchia, class: 'label' %>
+    <%= form.text_field :parrocchia, class: 'input' %>
   </div>
 
   <div class="field">
-    <%= form.label :data_di_nascita %>
-    <%= form.date_select :data_di_nascita %>
+    <%= form.label :data_di_nascita, class: 'label' %>
+    <%= form.date_select :data_di_nascita, class: 'input', start_year: Date.today.year - 14 %>
   </div>
 
   <div class="field">
-    <%= form.label :luogo_di_nascita %>
-    <%= form.text_field :luogo_di_nascita %>
+    <%= form.label :luogo_di_nascita, class: 'label' %>
+    <%= form.text_field :luogo_di_nascita, class: 'input' %>
   </div>
 
   <div class="field">
-    <%= form.label :padre %>
-    <%= form.text_field :padre %>
+    <%= form.label :padre, class: 'label' %>
+    <%= form.text_field :padre, class: 'input' %>
   </div>
 
   <div class="field">
-    <%= form.label :madre %>
-    <%= form.text_field :madre %>
+    <%= form.label :madre, class: 'label' %>
+    <%= form.text_field :madre, class: 'input' %>
   </div>
 
   <div class="field">
-    <%= form.label :telefono %>
-    <%= form.number_field :telefono %>
+    <%= form.label :telefono, class: 'label' %>
+    <%= form.number_field :telefono, class: 'input' %>
   </div>
 
   <div class="field">
-    <%= form.label :cellulare %>
-    <%= form.number_field :cellulare %>
+    <%= form.label :cellulare, class: 'label' %>
+    <%= form.number_field :cellulare, class: 'input' %>
   </div>
 
   <div class="field">
-    <%= form.label :indirizzo %>
-    <%= form.text_field :indirizzo %>
+    <%= form.label :indirizzo, class: 'label' %>
+    <%= form.text_field :indirizzo, class: 'input' %>
   </div>
 
   <div class="field">
-    <%= form.label :comune %>
-    <%= form.text_field :comune %>
+    <%= form.label :comune, class: 'label' %>
+    <%= form.text_field :comune, class: 'input' %>
   </div>
 
   <div class="field">
-    <%= form.label :cap %>
-    <%= form.number_field :cap %>
+    <%= form.label :cap, class: 'label' %>
+    <%= form.number_field :cap, class: 'input' %>
   </div>
 
   <div class="field">
-    <%= form.label :group_id %>
-    <%= form.text_field :group_id %>
+    <%= form.check_box :nulla_osta %>     <%= form.label :nulla_osta, class: 'label'%>
+    <p class="p small is-info">Mettere la spunta solo dopo aver ricevuto il relativo nulla osta dalla parrocchia di appartenenza. Se la parrocchia è San Girolamo, mettere la spunta</p>
+  </div>
+  <div class="field">
+    <%= form.label 'Gruppo', class: 'label' %>
+    <div class="select">
+      <%= form.select(:group_id, [''] + Group.all.sort_by {|group| group.anno }.map { |group| ["#{group.nome} - #{$ANNO_DI_CATECHISMO[group.anno]}", group.id] }) %>
+    </div>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit 'Crea scheda anagrafica', class: 'button is-primary'%>
   </div>
 <% end %>

@@ -9,14 +9,14 @@ class CreatePeople < ActiveRecord::Migration[6.0]
       t.string :luogo_di_nascita
       t.string :padre
       t.string :madre
-      t.integer :telefono
-      t.integer :cellulare
+      t.bigint :telefono
+      t.bigint :cellulare
       t.string :indirizzo
       t.string :comune
       t.integer :cap
       t.boolean :nulla_osta
       t.boolean :completo, default: true
-      t.references :group, null: false, foreign_key: true
+      t.references :group, null: true, foreign_key: true
 
       t.timestamps
     end

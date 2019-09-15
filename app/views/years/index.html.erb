@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1 class="title">Anni catechistici</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Nome anno</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @years.each do |year| %>
+      <tr>
+        <td><%= year.anno %></td>
+        <td><%= link_to 'Modifica', edit_year_path(year) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'Aggiungi anno', new_year_path, class: 'button is-info' %>

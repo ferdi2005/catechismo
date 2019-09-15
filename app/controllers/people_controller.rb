@@ -1,5 +1,6 @@
 class PeopleController < ApplicationController
   before_action :set_person, only: [:show, :edit, :update, :destroy]
+  before_action :in_redirect
 
   # GET /people
   # GET /people.json
@@ -58,6 +59,16 @@ class PeopleController < ApplicationController
     respond_to do |format|
       format.html { redirect_to people_url, notice: 'Person was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  def search
+    @people = Person.where('LOWER(nome) LIKE ? OR LOWER(cognome) LIKE ?', params[:nome].downcase, params[:cognome].downcase)
+    if @people.any?
+      render 'index'
+    else
+      flash[:error] = 'Nessuna anagrafica trovata'
+      redirect_to root_path
     end
   end
 

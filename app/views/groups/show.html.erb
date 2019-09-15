@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Nome:</strong>
+  <%= @group.nome %>
+</p>
+
+<p>
+  <strong>Anno catechistico:</strong>
+  <%= @group.year.anno %>
+</p>
+
+<p>
+  <strong>Anno:</strong>
+  <%= ANNO_DI_CATECHISMO[@group.anno] %>
+</p>
+
+<%= link_to 'Modifica', edit_group_path(@group) %> |
+<%= link_to 'Indietro', groups_path %>

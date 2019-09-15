@@ -1,3 +1,4 @@
+<h1 class="title">Scheda anagrafica personale <%= @person.nome %><%= @person.cognome %></h1>
 <p id="notice"><%= notice %></p>
 
 <p>
@@ -65,10 +66,19 @@
   <%= @person.cap %>
 </p>
 
+<% if !@person.group.nil? %>
 <p>
-  <strong>Group:</strong>
-  <%= @person.group_id %>
-</p>
-
-<%= link_to 'Edit', edit_person_path(@person) %> |
-<%= link_to 'Back', people_path %>
+    <strong>Gruppo di catechismo:</strong>
+    <%= @person.group.nome %> <%= $ANNO_DI_CATECHISMO[@person.group.anno] %>
+  </p>
+<% elsif @person.subscriptions.any? %>
+<p>
+    <strong>Gruppo di catechismo:</strong>
+    Nessun gruppo assegnato - <%= $ANNO_DI_CATECHISMO[@person.subscriptions.last.anno] %>
+  </p>
+<% end %>
+<br />
+<%= link_to 'Nuova iscrizione al catechismo', subscription_path(id: person.id), class: 'button is-small' %>
+<br />
+<%= link_to 'Modifica dati in anagrafica', edit_person_path(@person), class: 'button is-primary' %> |
+<%= link_to 'Torna alla lista delle persone', people_path, class: 'button is-small' %>
