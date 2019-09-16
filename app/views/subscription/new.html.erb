@@ -4,11 +4,9 @@
 
 <br />
 
-<%= form_with model: @subscription, url: subscription_path, method: :post do |f|%>
+<%= form_for @subscription, url: subscription_path, method: :post do |f|%>
 
   <%= f.hidden_field :person_id, value: @person.id.to_s %>
-  <%= f.hidden_field :year_id, value: @year.id.to_s %>
-  <%= f.hidden_field :day_id, value: @day.id.to_s %>
   <div class="field">
     <%= f.label :anno, class: 'label' %>
     <div class="select">
@@ -33,12 +31,11 @@
   <div class="field">
     <%= f.label 'Gruppo', class: 'label' %>
     <div class="select">
-      <%= f.select(:group_id, [''] + Group.all.sort_by {|group| group.anno }.map { |group| ["#{group.nome} - #{$ANNO_DI_CATECHISMO[group.anno]}", group.id] }) %>
+      <%= f.select(:group_id, [['', '']] + Group.all.sort_by {|group| group.anno }.map { |group| ["#{group.nome} - #{$ANNO_DI_CATECHISMO[group.anno]}", group.id] }) %>
     </div>
   </div>
   <p>Viene trasferito automaticamente alla persona</p>
 
-    t.bigint "day_id", null: false
-
+  <%= f.submit 'Crea iscrizione', class: 'button is-primary' %>
 
 <% end %>

@@ -5,7 +5,7 @@ class PeopleController < ApplicationController
   # GET /people
   # GET /people.json
   def index
-    @people = Person.all.select { |p| p.subscriptions.where(year:@year).any? }
+    @people = Person.all.select { |p| p.subscriptions.where(year:@year).any? ||  p.subscriptions.count == 0 }
   end
 
   # GET /people/1
@@ -29,7 +29,7 @@ class PeopleController < ApplicationController
 
     respond_to do |format|
       if @person.save
-        format.html { redirect_to @person, notice: "Anagrafica di #{@person.nome} #{@person.cognome} creata correttamente." }
+        format.html { redirect_to @person, success: "Anagrafica di #{@person.nome} #{@person.cognome} creata correttamente." }
         format.json { render :show, status: :created, location: @person }
       else
         format.html { render :new }
@@ -43,7 +43,7 @@ class PeopleController < ApplicationController
   def update
     respond_to do |format|
       if @person.update(person_params)
-        format.html { redirect_to @person, notice: 'Anagrafica modificata correttamente.' }
+        format.html { redirect_to @person, success: 'Anagrafica modificata correttamente.' }
         format.json { render :show, status: :ok, location: @person }
       else
         format.html { render :edit }
@@ -57,7 +57,7 @@ class PeopleController < ApplicationController
   def destroy
     @person.destroy
     respond_to do |format|
-      format.html { redirect_to people_url, notice: 'Anagrafica eliminata correttamente.' }
+      format.html { redirect_to people_url, success: 'Anagrafica eliminata correttamente.' }
       format.json { head :no_content }
     end
   end
@@ -72,8 +72,18 @@ class PeopleController < ApplicationController
     end
   end
 
+  def assegnare
+    @people = Person.where(group: nil)
+    if @people.any?
+      render 'index'
+    else
+      flash[:error] = "L'assegnazione è stata già completata, nessuna persona senza gruppo."
+      redirect_to root_path
+    end
+  end
+
   def printed
-    @people = Person.all.select { |p| p.subscriptions.where(year:@year).any? }
+    @people = Person.all.select { |p| p.subscriptions.where(year:@year).any? }.sort_by { |p| p.cognome}
   end
 
   private

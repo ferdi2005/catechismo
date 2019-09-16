@@ -36,12 +36,10 @@ class ApplicationController < ActionController::Base
 
   # Settaggi di variabili
   def set_day
-    unless current_user.admin?
       unless @day = Day.find_by(user: current_user, chiusura: nil)
-        redirect_to root_path and return
-        flash[:error] = 'Apri la giornata prima di eseguire questa operazione.'
+          redirect_to root_path and return
+          flash[:error] = 'Apri la giornata prima di eseguire questa operazione.'
       end
-    end
   end
 
   def year

@@ -1,4 +1,4 @@
-<h1 class="title">Scheda anagrafica personale <%= @person.nome %><%= @person.cognome %></h1>
+<h1 class="title">Scheda anagrafica personale <%= @person.nome %> <%= @person.cognome %></h1>
 <p id="notice"><%= notice %></p>
 
 <p>
@@ -69,20 +69,30 @@
 <% if !@person.group.nil? %>
 <p>
     <strong>Gruppo di catechismo:</strong>
-    <%= @person.group.nome %> <%= $ANNO_DI_CATECHISMO[@person.group.anno] %>
+    <%= @person.group.nome %>
+  </p>
+<p>
+    <strong>Anno:</strong>
+     <%= $ANNO_DI_CATECHISMO[@person.group.anno] %>
   </p>
 <% elsif @person.subscriptions.any? %>
-<p>
+  <p>
     <strong>Gruppo di catechismo:</strong>
     Nessun gruppo assegnato - <%= $ANNO_DI_CATECHISMO[@person.subscriptions.last.anno] %>
   </p>
+
+  <p>
+    <strong>Anno:</strong>
+    <%= $ANNO_DI_CATECHISMO[@person.subscriptions.last.anno] %>
+  </p>
+
 <% end %>
 <br />
 <h1 class="subtitle">Iscrizioni al catechismo</h1>
 <% @person.subscriptions.each do |subscription| %>
   <p><b>Anno:</b><%= $ANNO_DI_CATECHISMO[subscription.anno] %></p>
-  <p><b>Gruppo di catechismo:</b><%= subscription.group.nome %></p>
-  <p><b>Quota (<%= subscription.quota_versata %>):</b>€<%= subscription.quota %></p>
+  <p><b>Gruppo di catechismo:</b><%= subscription.group.nome unless subscription.group.nil?%><%= 'Assegnato successivamente' if subscription.group.nil? %></p>
+  <p><b>Quota (<%= subscription.quota_versata ? 'Sì' : 'No'%>):</b>€<%= subscription.quota %></p>
   <p><b>Giorno di iscrizione:</b> <%=  subscription.created_at.strftime('%d/%m/%Y') %></p>
   <p><b>Anno catechistico:</b> <%= subscription.year.anno %></p>
   <p><b>Operatore:</b><%= subscription.day.user.username %></p>

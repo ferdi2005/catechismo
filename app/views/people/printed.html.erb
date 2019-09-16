@@ -1,25 +1,71 @@
+
+<div id="reg">
 <style>
 .vl {
-  border-left: 3px solid black;
-  height: 500px;
 }
+/* Pen-specific styles */
+* {
+  box-sizing: border-box;
+}
+
+body { 
+  font-family: sans-serif;
+  font-size: 1.25rem;
+  text-align: center;
+}
+
+section {
+  width: 100%;
+}
+
+article {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  padding: 1rem;
+  text-align: center;
+  transform: translate(-50%, -50%);
+}
+
+h1 {
+  font-size: 1.75rem;
+  margin: 0 0 0.75rem 0;
+}
+
+/* Pattern styles */
+.left-half {
+  float: left;
+  width: 50%;
+  border-right: 2px solid black;
+  border-bottom: 2px solid black;
+}
+.right-half {
+  float: right;
+  width: 50%;
+  border-bottom: 2px solid black;
+}
+}
+
 </style>
-<div id="reg">
   <h1 class="title is-2">Elenco alunni catechismo anno <%= @year.anno %></h1>
   <% i = 0 %>
   <% @people.each do |person| %>
   <% if i.even? %>
-  <nav class="level">
-    <div class="level-left">
+  <section class="container section">
+    <div class="left-half">
   <% end %>
-    <p>
-      <strong>Nome:</strong>
-      <%= person.nome %>
-    </p>
+  <% unless i.even? %>
+    <div class="right-half">
+  <% end %>
 
     <p>
       <strong>Cognome:</strong>
       <%= person.cognome %>
+    </p>
+
+    <p>
+      <strong>Nome:</strong>
+      <%= person.nome %>
     </p>
 
     <p>
@@ -76,24 +122,22 @@
       <strong>Cap:</strong>
       <%= person.cap %>
     </p>
-    <% if !@person.group.nil? %>
+    <% if !person.group.nil? %>
   <p>
-      <strong>Gruppo di catechismo:</strong>
-      <%= @person.group.nome %> <%= $ANNO_DI_CATECHISMO[@person.group.anno] %>
+      <strong>Gruppo:</strong>
+      <%= person.group.nome %> <%= $ANNO_DI_CATECHISMO[person.group.anno] %>
     </p>
-  <% elsif @person.subscriptions.any? %>
+  <% elsif person.subscriptions.any? %>
   <p>
-      <strong>Gruppo di catechismo:</strong>
-      Nessun gruppo assegnato - <%= $ANNO_DI_CATECHISMO[@person.subscriptions.last.anno] %>
+      <strong>Gruppo:</strong>
+      No - <%= $ANNO_DI_CATECHISMO[person.subscriptions.last.anno] %>
     </p>
   <% end %>
 
-  <% unless i.even? %>
-  <div class="vl"></div>
   </div>
-  </nav>
+  <% unless i.even? %>
+  </section>
   <% end %>
-    <hr />
   <% i += 1 %>
   <% end %>
 </div>
@@ -103,7 +147,7 @@
         function printDiv() { 
             var divContents = document.getElementById("reg").innerHTML; 
             var head = $('head').html(); 
-            var a = window.open('', '', 'height=500, width=500'); 
+            var a = window.open('', '', 'height=1500, width=1000'); 
             if(!a || a.closed || typeof a.closed=='undefined') 
             { 
               Swal.fire(
@@ -114,7 +158,6 @@
             } else {
             a.document.write(head); 
             a.document.write(divContents); 
-            a.document.write('<br/> <p>Ultimo aggiornamento <%= DateTime.now %>'); 
             a.document.close(); 
             a.print(); 
             }

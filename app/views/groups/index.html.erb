@@ -18,7 +18,7 @@
     <% @groups.each do |group| %>
       <tr>
         <td><%= group.nome %></td>
-        <td><%= ANNO_DI_CATECHISMO[group.anno] %></td>
+        <td><%= $ANNO_DI_CATECHISMO[group.anno] %></td>
         <td><%= link_to 'Modifica', edit_group_path(group) %></td>
         <td><%= link_to 'Elimina', group, method: :delete, data: { confirm: 'Sicuro?' } %></td>
       </tr>

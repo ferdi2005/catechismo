@@ -4,20 +4,23 @@
     <title>Catechismo</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
+    
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <script   src="https://code.jquery.com/jquery-3.4.1.min.js"  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="   crossorigin="anonymous"></script> 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+        <script src="https://kit.fontawesome.com/8e330155be.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
-    <script src="https://kit.fontawesome.com/8e330155be.js"></script>
   </head>
 
   <body>
       <% flash.each do |key, value| %>
           <script>
             Swal.fire({
-              type: '<%== key %>',
-              text: '<%== value %>'    
-            })
+              html: "<%== value %>",
+              type: "<%== key %>",
+              timer: 5000
+            });
           </script>
       <% end%>
 <section class="section">
@@ -29,26 +32,36 @@
           <%= select_tag('year', options_from_collection_for_select(Year.all, "id", "anno")) %>
         </div>
         &nbsp;
+        <a id="setanno" class="button is-primary">Imposta anno</a>
+        &nbsp;
         &nbsp;
         <%= link_to 'Torna alla home', root_path, class: 'button is-danger is-small' %>
         &nbsp;
         <% unless @day.nil? %>
-          <%= link_to 'Chiudi giornata', days_close_path, class: 'button is-warning is-small', data: {turbolinks: false, confirm: "Chiudendo la giornata dovrai consegnare €#{@day.subscriptions.pluck(:quota).sum}. Giusto?"} %>
+          <%= link_to 'Chiudi giornata', days_close_path, class: 'button is-warning is-small', data: {turbolinks: false, confirm: "Chiudendo la giornata dovrai consegnare €#{@day.subscriptions.pluck(:quota).sum}. Giusto? Se sbagliato, ricontrolla le iscrizioni fatte"} %>
+          &nbsp;
+          <b>Totale cassa:</b> €<%= @day.subscriptions.pluck(:quota).sum %>
+          &nbsp;
+          <b>Iscrizioni fatte:</b> <%= @day.subscriptions.count %>
         <% end %>
       </div>
 
       <script>
-        $('#year').change(function(){
-          var year_id = $('#year').val();
-          console.log('Anno corrente -> ' + year_id);
-          Cookies.set('year_id', year_id);
+        $('#setanno').click(function(){
+            var year_id = $('#year').val();
+            console.log('Anno corrente -> ' + year_id);
+            Cookies.set('year_id', year_id);
+            window.location.reload();
         });
 
         $(document).ready(function(){
+          if (typeof Cookies.get('year_id') == 'undefined') {
           var year_id = $('#year').val();
           console.log('Anno corrente -> ' + year_id);
           Cookies.set('year_id', year_id);
-
+          } else {
+            $('#year').val(Cookies.get('year_id')).change();
+          }
         })
       </script>
     </nav>

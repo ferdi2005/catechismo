@@ -14,7 +14,5 @@
 //= require turbolinks
 //= require activestorage
 //= require jquery/dist/jquery
-//= require sweetalert2
 //= require_tree .
 
-var Swal = Sweetalert2;

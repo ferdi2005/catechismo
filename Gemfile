@@ -54,4 +54,3 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 gem "devise", "~> 4.7"
-gem 'rails-assets-sweetalert2', '~> 5.1.1', source: 'https://rails-assets.org'

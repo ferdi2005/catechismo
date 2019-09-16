@@ -13,6 +13,6 @@ Rails.application.routes.draw do
   post 'subscription', to: 'subscription#create' 
   get 'printed', to: 'people#printed' 
   get 'deletesubscription', to: 'subscription#delete'
-
+  get 'assegnare', to: 'people#assegnare'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end
