@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   get 'days/close'
   get 'registro', to: 'days#registro'
   get 'subscription/new'
-  devise_for :users, controllers: { registrations: 'user/registrations'}
+  devise_for :users, controllers: { registrations: 'users/registrations'}
   root 'home#home'
   get 'searchpeople', to: 'people#search'
   resources :people

@@ -1,8 +1,14 @@
 class ApplicationController < ActionController::Base
   before_action :year
+  before_action :configure_permitted_parameters, if: :devise_controller?
 
-  # TODO: TEMPORANEI E DI SVILUPPO
-  ENV['QUOTA'] = '15'
+  protected
+
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:admin])
+  end
+
+
   # Variabili globali
   ANNO_DI_CATECHISMO = {
     1 => 'Confessione',
@@ -37,8 +43,8 @@ class ApplicationController < ActionController::Base
   # Settaggi di variabili
   def set_day
       unless @day = Day.find_by(user: current_user, chiusura: nil)
-          redirect_to root_path and return
           flash[:error] = 'Apri la giornata prima di eseguire questa operazione.'
+          redirect_to root_path and return
       end
   end
 

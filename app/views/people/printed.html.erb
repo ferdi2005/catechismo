@@ -150,11 +150,11 @@ h1 {
             var a = window.open('', '', 'height=1500, width=1000'); 
             if(!a || a.closed || typeof a.closed=='undefined') 
             { 
+                location = location.origin;
               Swal.fire(
                 {type: 'error',
                 title: 'Impossibile mandare in stampa',
                 text: "Verifica di avere attivato i popups sul tuo browser, necessari per poter mandare in stampa l'elenco."});
-                location = location.origin;
             } else {
             a.document.write(head); 
             a.document.write(divContents); 

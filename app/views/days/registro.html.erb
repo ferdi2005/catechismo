@@ -6,12 +6,12 @@
   <h1 class="title is-5" style="text-align:center;">Nessuna giornata ancora in registro per l'anno <%= @year.anno %></p>
   <% else %>
     <% @days.each do |day| %>
-      <h2 class="subtitle">Giornata del <%= day.apertura.strftime('%d/%m/%Y') %></h2>
+      <h2 class="subtitle">Giornata del <%= day.apertura.strftime('%d/%m/%Y %H:%M') %></h2>
       <% if day.chiusura.nil? %>
-        <h1 class="title is-5">Questa giornata è ancora aperta, se sei l'operatore, chiudila.</h1>
+        <h1 class="title is-5">Questa giornata è ancora aperta, se sei l'operatore <%= day.user.username %>, chiudila.</h1>
 
         <% if current_user.admin? %>
-          <%= link_to 'Chiusura di emergenza per parroco', close_days_path(id: day.id), class: 'button is-danger' %>
+          <%= link_to 'Chiusura di emergenza per parroco', days_close_path(id: day.id), class: 'button is-danger' %>
         <% end %>
       <% end %>
       <p><b>Apertura:</b> <%= day.apertura %></p>
@@ -24,10 +24,10 @@
         <% end %>
         </ol>
       </p>
-      <p><b>Totale raccolto:</b> €<%= day.totale_raccolto unless day.chiusura.nil?%><%= day.subscriptions.pluck(:quota).sum if day.chiusura.nil?%></p>
+      <p><b>Totale raccolto:</b> €<%= day.totale_consegnato unless day.chiusura.nil?%><%= day.subscriptions.pluck(:quota).sum if day.chiusura.nil?%></p>
     <hr />
     <% end %>
-    <h1 class="title is-5"> Totale raccolto per l'anno catechistico in corso: €<%= @days.pluck(:totale_raccolto).sum %></p>
+    <h1 class="title is-5"> Totale raccolto per l'anno catechistico in corso: €<%= @days.pluck(:totale_consegnato).compact.sum %></p>
 
   <% end %>
 </div>
@@ -36,10 +36,20 @@
             var divContents = document.getElementById("reg").innerHTML; 
             var head = $('head').html(); 
             var a = window.open('', '', 'height=500, width=500'); 
+            if(!a || a.closed || typeof a.closed=='undefined') 
+            { 
+                location = location.origin;
+              Swal.fire(
+                {type: 'error',
+                title: 'Impossibile mandare in stampa',
+                text: "Verifica di avere attivato i popups sul tuo browser, necessari per poter mandare in stampa l'elenco."});
+            } else {
+
             a.document.write(head); 
             a.document.write(divContents); 
             a.document.write('<br/> <p>Ultimo aggiornamento <%= DateTime.now %>'); 
             a.document.close(); 
             a.print(); 
+            }
         } 
     </script> 

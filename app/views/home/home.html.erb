@@ -4,18 +4,21 @@
 
     <%= link_to 'Schede anagrafiche', people_path, class: 'button is-primary' %>
 
-    <%= link_to 'Registro giornate', people_path, class: 'button is-danger' %>
+    <%= link_to 'Registro giornate', registro_path, class: 'button is-danger' %>
 
 
   
   <% if current_user.admin? %>
-     <%== link_to printed_path, class: 'button is-link' do %>
-     <i class='fas fa-print'></i> Stampa
+     <%== link_to(printed_path, class: 'button is-link', data: {turbolinks: false}) do %>
+     <i class='fas fa-print'></i>&nbsp; Stampa
     <% end %>
     <%= link_to 'Aggiungi anno', new_year_path, class: 'button is-success' %>
     <%= link_to 'Aggiungi gruppo', new_group_path, class: 'button is-success' %>
     <%= link_to 'Lista gruppi', groups_path, class: 'button is-success' %>
-        <%= link_to 'Persone a cui manca un gruppo', assegnare_path, class: 'button is-success' %>
+    <%= link_to 'Persone a cui manca un gruppo', assegnare_path, class: 'button is-success' %>
+    <%= link_to new_user_registration_path, class: 'button is-success' do %>
+      <i class="fas fa-user-plus"></i> &nbsp;Crea nuovo utente
+    <% end %>
   <% end %>
 </div>
 

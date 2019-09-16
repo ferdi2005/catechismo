@@ -1,28 +1,34 @@
-<h2>Sign up</h2>
+<h2 class="title">Crea nuovo utente</h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
 
   <div class="field">
-    <%= f.label :username %><br />
-    <%= f.text_field :email, autofocus: true, autocomplete: "username" %>
+    <%= f.label :username, class: 'label'%><br />
+    <%= f.text_field :username, autofocus: true, autocomplete: "username", class: 'input' %>
   </div>
 
   <div class="field">
-    <%= f.label :password %>
+    <%= f.label :password, class: 'label'%>
     <% if @minimum_password_length %>
     <em>(<%= @minimum_password_length %> characters minimum)</em>
     <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
+    <%= f.password_field :password, autocomplete: "new-password", class: 'input' %>
   </div>
 
   <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+    <%= f.label 'Conferma della password', class: 'label'%><br />
+    <%= f.password_field :password_confirmation, autocomplete: "new-password", class: 'input'%>
+  </div>
+
+  <div class="field">
+    <%= f.label :admin, class: 'label'%>
+    <%= f.check_box :admin, class: 'checkbox'%>
+    <p>Questo parametro serve per impostare un amministratore del sistema. Generalmente NON impostarlo</p>
   </div>
 
   <div class="actions">
-    <%= f.submit "Sign up" %>
+    <%= f.submit "Crea utente", class: 'button is-primary' %>
   </div>
 <% end %>
 
