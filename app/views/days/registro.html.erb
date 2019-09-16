@@ -1,0 +1,23 @@
+<h1 class="title is-1">Registro operazioni giornate</h1>
+<%= @days.each do |day| %>
+  <h2 class="subtitle">Giornata del <%= day.apertura.strftime('%d/%m/%Y') %></h2>
+  <% if day.chiusura.nil? %>
+    <h1 class="title is-5">Questa giornata è ancora aperta, se sei l'operatore, chiudila.</h1>
+
+    <% if current_user.admin? %>
+      <%= link_to 'Chiusura di emergenza per parroco', close_days_path(id: day.id), class: 'button is-danger' %>
+    <% end %>
+  <% end %>
+  <p><b>Apertura:</b> <%= day.apertura %></p>
+  <p><b>Chiusura:</b> <%= day.chiusura unless day.chiusura.nil?%></p>
+  <p><b>Iscrizioni:</b> <%= day.subscriptions.count %></p>
+  <p><b>Iscritti:</b>
+    <ol>
+    <% day.subscriptions.each do |subscription| %>
+      <li><%= link_to "#{subscription.person.nome} #{subscription.person.cognome}", subscription.person %></li>
+    <% end %>
+    </ol>
+  </p>
+  <p><b>Totale raccolto:</b> €<%= day.totale_raccolto unless day.chiusura.nil?%><%= day.subscriptions.pluck(:quota).sum if day.chiusura.nil?%></p>
+<hr />
+<% end %>

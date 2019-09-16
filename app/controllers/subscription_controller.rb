@@ -1,5 +1,6 @@
 class SubscriptionController < ApplicationController
   before_action :in_redirect
+  before_action :set_day
 
   def new
     unless (@person = Person.find(params[:id]))
@@ -12,8 +13,7 @@ class SubscriptionController < ApplicationController
   def create
     @person = Person.find(params[:subscription][:person_id].to_i)
     @year = Person.find(params[:subscription][:year_id].to_i)
-    @day = Person.find(params[:subscription][:day_id].to_i)
-
+    
     @subscription = Subscription.new(params.merge(person: @person, year: @year, day: @day))
     if @subscription.save
       redirect_to @person

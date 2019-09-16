@@ -56,3 +56,17 @@
 <br>
 
 <%= link_to 'Nuova anagrafica', new_person_path, class: 'button is-primary' %>
+
+  <h2 class="title is-3" style="text-align: center;">Cerca anagrafica</h2>
+  <%= form_with url: searchpeople_path, local: true,  method: :get do |f| %>
+    <div class="field">
+      <%= f.label :nome, class: 'label' %>
+      <%= f.text_field :nome, class: 'input' %>
+    </div>
+    <div class="field">
+      <%= f.label :cognome, class: 'label' %>
+      <%= f.text_field :cognome, class: 'input' %>
+    </div>
+    
+    <%= f.submit 'Cerca', class: 'button is-primary' %>
+  <% end %>

@@ -1,25 +1,41 @@
 <h1 class="title is-1">Gestione catechismo</h1>
 <div class="buttons">
   <%= link_to 'Nuova anagrafica (solo iscrizioni primo anno)', new_person_url, class: 'button is-info' %>
+
     <%= link_to 'Schede anagrafiche', people_path, class: 'button is-danger' %>
+
+    <%= link_to 'Registro giornate', people_path, class: 'button is-danger' %>
 
   <% if current_user.admin? %>
     <%= link_to 'Aggiungi anno', new_year_path, class: 'button is-success' %>
   <% end %>
 </div>
 
-<h2 class="title is-3" style="text-align: center;">Cerca anagrafica</h2>
-<%= form_with url: searchpeople_path, local: true,  method: :get do |f| %>
-  <div class="field">
-    <%= f.label :nome, class: 'label' %>
-    <%= f.text_field :nome, class: 'input' %>
+<% if @day.nil? %>
+<h1 style="text-align:center;" class="title is-5">Apri una giornata prima di incominciare ad operare</h1>
+  <div class="buttons is-centered">
+      <%= link_to 'Apri giornata', days_new_path, class: 'button is-warning is-large', data: { turbolinks: false}%>
   </div>
-  <div class="field">
-    <%= f.label :cognome, class: 'label' %>
-    <%= f.text_field :cognome, class: 'input' %>
-  </div>
-  
-  <%= f.submit 'Cerca', class: 'button is-primary' %>
-<% end %>
+  <p>Prima di incominciare ad operare sulle iscrizioni, è necessario aprire una nuova giornata per effettuare le operazioni di registro. Puoi continuare senza aprire una giornata <%= link_to 'cliccando qui', people_path %>. Le operazioni effettuate non verranno però riportate in registro. </p>
+<% else %>
+  <h2 class="title is-3" style="text-align: center;">Cerca anagrafica</h2>
+  <%= form_with url: searchpeople_path, local: true,  method: :get do |f| %>
+    <div class="field">
+      <%= f.label :nome, class: 'label' %>
+      <%= f.text_field :nome, class: 'input' %>
+    </div>
+    <div class="field">
+      <%= f.label :cognome, class: 'label' %>
+      <%= f.text_field :cognome, class: 'input' %>
+    </div>
+    
+    <%= f.submit 'Cerca', class: 'button is-primary' %>
+  <% end %>
 
-<p>Per iscrivere qualcuno al catechismo, sia la prima volta che per gli anni successivi, creare o cercare l'anagrafica corrispondente, poi cliccare su "Crea iscrizione" accanto al nome</p>
+  <p>Per iscrivere qualcuno al catechismo, sia la prima volta che per gli anni successivi, creare o cercare l'anagrafica corrispondente, poi cliccare su "Crea iscrizione" accanto al nome.</p>
+
+  <div class="buttons is-centered">
+    <%= link_to 'Chiudi giornata', days_close_path, class: 'button is-warning is-large', data: {turbolinks: false, confirm: "Chiudendo la giornata dovrai consegnare €#{@day.subscriptions.pluck(:quota).sum}. Giusto?"} %>
+  </div>
+  <p>Per annullare un'operazione come un iscrizione, in caso di conteggio errato, è possibile o rivolgersi al parroco che ha sempre a disposizione la funzionalità o cliccare sul tasto "Elimina", disponibile solo <b>prima</b> di aver chiuso la giornata di riferimento.</p>
+<% end %>

@@ -16,12 +16,12 @@
       <% flash.each do |key, value| %>
           <script>
             Swal.fire({
-              type: '<%= key %>',
-              text: '<%= value %>'    
+              type: '<%== key %>',
+              text: '<%== value %>'    
             })
           </script>
       <% end%>
-      
+<section class="section">
     <nav class="level">
       <div class="level-left">
         <h1 class="title is-5">Anno di riferimento</h1>
@@ -32,6 +32,10 @@
         &nbsp;
         &nbsp;
         <%= link_to 'Torna alla home', root_path, class: 'button is-danger is-small' %>
+        &nbsp;
+        <% unless @day.nil? %>
+          <%= link_to 'Chiudi giornata', days_close_path, class: 'button is-warning is-small', data: {turbolinks: false, confirm: "Chiudendo la giornata dovrai consegnare €#{@day.subscriptions.pluck(:quota).sum}. Giusto?"} %>
+        <% end %>
       </div>
 
       <script>
@@ -50,5 +54,7 @@
       </script>
     </nav>
       <%= yield %>
+
+  </section>
   </body>
 </html>
