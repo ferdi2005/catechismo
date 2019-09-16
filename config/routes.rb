@@ -8,9 +8,11 @@ Rails.application.routes.draw do
   get 'searchpeople', to: 'people#search'
   resources :people
   resources :years
+  resources :groups
   get 'subscription', to: 'subscription#new'  
   post 'subscription', to: 'subscription#create' 
   get 'printed', to: 'people#printed' 
+  get 'deletesubscription', to: 'subscription#delete'
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

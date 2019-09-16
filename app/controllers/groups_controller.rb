@@ -1,6 +1,6 @@
 class GroupsController < ApplicationController
   before_action :set_group, only: [:show, :edit, :update, :destroy]
-  before_action :is_admin?
+  before_action :admin?
 
   # GET /groups
   # GET /groups.json

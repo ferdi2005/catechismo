@@ -2,12 +2,14 @@
 <div class="buttons">
   <%= link_to 'Nuova anagrafica (solo iscrizioni primo anno)', new_person_url, class: 'button is-info' %>
 
-    <%= link_to 'Schede anagrafiche', people_path, class: 'button is-danger' %>
+    <%= link_to 'Schede anagrafiche', people_path, class: 'button is-primary' %>
 
     <%= link_to 'Registro giornate', people_path, class: 'button is-danger' %>
 
   <% if current_user.admin? %>
     <%= link_to 'Aggiungi anno', new_year_path, class: 'button is-success' %>
+    <%= link_to 'Aggiungi gruppo', new_group_path, class: 'button is-success' %>
+    <%= link_to 'Lista gruppi', groups_path, class: 'button is-success' %>
   <% end %>
 </div>
 
@@ -35,7 +37,7 @@
   <p>Per iscrivere qualcuno al catechismo, sia la prima volta che per gli anni successivi, creare o cercare l'anagrafica corrispondente, poi cliccare su "Crea iscrizione" accanto al nome.</p>
 
   <div class="buttons is-centered">
-    <%= link_to 'Chiudi giornata', days_close_path, class: 'button is-warning is-large', data: {turbolinks: false, confirm: "Chiudendo la giornata dovrai consegnare €#{@day.subscriptions.pluck(:quota).sum}. Giusto?"} %>
+    <%= link_to 'Chiudi giornata', days_close_path, class: 'button is-warning is-large', data: {turbolinks: false, confirm: "Chiudendo la giornata dovrai consegnare €#{@day.subscriptions.pluck(:quota).sum}. Sei sicuro di voler terminare la giornata, giusto?"} %>
   </div>
   <p>Per annullare un'operazione come un iscrizione, in caso di conteggio errato, è possibile o rivolgersi al parroco che ha sempre a disposizione la funzionalità o cliccare sul tasto "Elimina", disponibile solo <b>prima</b> di aver chiuso la giornata di riferimento.</p>
 <% end %>

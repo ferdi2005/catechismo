@@ -78,6 +78,17 @@
   </p>
 <% end %>
 <br />
+<h1 class="subtitle">Iscrizioni al catechismo</h1>
+<% @person.subscriptions.each do |subscription| %>
+  <p><b>Anno:</b><%= $ANNO_DI_CATECHISMO[subscription.anno] %></p>
+  <p><b>Gruppo di catechismo:</b><%= subscription.group.nome %></p>
+  <p><b>Quota (<%= subscription.quota_versata %>):</b>€<%= subscription.quota %></p>
+  <p><b>Giorno di iscrizione:</b> <%=  subscription.created_at.strftime('%d/%m/%Y') %></p>
+  <p><b>Anno catechistico:</b> <%= subscription.year.anno %></p>
+  <p><b>Operatore:</b><%= subscription.day.user.username %></p>
+  <%= link_to 'Annulla', deletesubscription_path(id: subscription.id), data: {confirm: "Sei sicuro di voler eliminare l'iscrizione di #{@person.nome} #{@person.cognome} per il #{$ANNO_DI_CATECHISMO[subscription.anno]}? #{"La quota è stata versata correttamente, cancellando l'iscrizione annullerai il versamento." if subscription.quota_versata?}"}, class: 'button is-danger is-small' if current_user.admin? || (subscription.day.chiusura.nil? && subscription.day.user == current_user) %>
+  <hr />
+<% end %>
 <%= link_to 'Nuova iscrizione al catechismo', subscription_path(id: @person.id), class: 'button is-medium is-primary' %>
 <br />
 <br />
