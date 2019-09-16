@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_15_195801) do
+ActiveRecord::Schema.define(version: 2019_09_16_141437) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,7 +22,9 @@ ActiveRecord::Schema.define(version: 2019_09_15_195801) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "user_id", null: false
+    t.bigint "year_id"
     t.index ["user_id"], name: "index_days_on_user_id"
+    t.index ["year_id"], name: "index_days_on_year_id"
   end
 
   create_table "groups", force: :cascade do |t|
@@ -97,6 +99,7 @@ ActiveRecord::Schema.define(version: 2019_09_15_195801) do
   end
 
   add_foreign_key "days", "users"
+  add_foreign_key "days", "years"
   add_foreign_key "groups", "years"
   add_foreign_key "people", "groups"
   add_foreign_key "subscriptions", "days"

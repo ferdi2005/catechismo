@@ -21,3 +21,5 @@
   <p><b>Totale raccolto:</b> €<%= day.totale_raccolto unless day.chiusura.nil?%><%= day.subscriptions.pluck(:quota).sum if day.chiusura.nil?%></p>
 <hr />
 <% end %>
+
+<h1 class="title is-5"> Totale raccolto per l'anno catechistico in corso: €<%= day.totale_raccolto.sum %></p>
