@@ -9,7 +9,8 @@ Rails.application.routes.draw do
   resources :people
   resources :years
   get 'subscription', to: 'subscription#new'  
-  post 'subscription', to: 'subscription#create'  
+  post 'subscription', to: 'subscription#create' 
+  get 'printed', to: 'people#printed' 
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

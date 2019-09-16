@@ -1,0 +1,126 @@
+<style>
+.vl {
+  border-left: 3px solid black;
+  height: 500px;
+}
+</style>
+<div id="reg">
+  <h1 class="title is-2">Elenco alunni catechismo anno <%= @year.anno %></h1>
+  <% i = 0 %>
+  <% @people.each do |person| %>
+  <% if i.even? %>
+  <nav class="level">
+    <div class="level-left">
+  <% end %>
+    <p>
+      <strong>Nome:</strong>
+      <%= person.nome %>
+    </p>
+
+    <p>
+      <strong>Cognome:</strong>
+      <%= person.cognome %>
+    </p>
+
+    <p>
+      <strong>Battesimo:</strong>
+      <%= person.battesimo %>
+    </p>
+
+    <p>
+      <strong>Parrocchia:</strong>
+      <%= person.parrocchia %>
+    </p>
+
+    <p>
+      <strong>Data di nascita:</strong>
+      <%= person.data_di_nascita %>
+    </p>
+
+    <p>
+      <strong>Luogo di nascita:</strong>
+      <%= person.luogo_di_nascita %>
+    </p>
+
+    <p>
+      <strong>Padre:</strong>
+      <%= person.padre %>
+    </p>
+
+    <p>
+      <strong>Madre:</strong>
+      <%= person.madre %>
+    </p>
+
+    <p>
+      <strong>Telefono:</strong>
+      <%= person.telefono %>
+    </p>
+
+    <p>
+      <strong>Cellulare:</strong>
+      <%= person.cellulare %>
+    </p>
+
+    <p>
+      <strong>Indirizzo:</strong>
+      <%= person.indirizzo %>
+    </p>
+
+    <p>
+      <strong>Comune:</strong>
+      <%= person.comune %>
+    </p>
+
+    <p>
+      <strong>Cap:</strong>
+      <%= person.cap %>
+    </p>
+    <% if !@person.group.nil? %>
+  <p>
+      <strong>Gruppo di catechismo:</strong>
+      <%= @person.group.nome %> <%= $ANNO_DI_CATECHISMO[@person.group.anno] %>
+    </p>
+  <% elsif @person.subscriptions.any? %>
+  <p>
+      <strong>Gruppo di catechismo:</strong>
+      Nessun gruppo assegnato - <%= $ANNO_DI_CATECHISMO[@person.subscriptions.last.anno] %>
+    </p>
+  <% end %>
+
+  <% unless i.even? %>
+  <div class="vl"></div>
+  </div>
+  </nav>
+  <% end %>
+    <hr />
+  <% i += 1 %>
+  <% end %>
+</div>
+
+    <script> 
+
+        function printDiv() { 
+            var divContents = document.getElementById("reg").innerHTML; 
+            var head = $('head').html(); 
+            var a = window.open('', '', 'height=500, width=500'); 
+            if(!a || a.closed || typeof a.closed=='undefined') 
+            { 
+              Swal.fire(
+                {type: 'error',
+                title: 'Impossibile mandare in stampa',
+                text: "Verifica di avere attivato i popups sul tuo browser, necessari per poter mandare in stampa l'elenco."});
+                location = location.origin;
+            } else {
+            a.document.write(head); 
+            a.document.write(divContents); 
+            a.document.write('<br/> <p>Ultimo aggiornamento <%= DateTime.now %>'); 
+            a.document.close(); 
+            a.print(); 
+            }
+        } 
+    document.addEventListener("DOMContentLoaded", function(event) { 
+      printDiv();
+    });
+
+    </script> 

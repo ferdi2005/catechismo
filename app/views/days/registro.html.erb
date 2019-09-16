@@ -1,25 +1,45 @@
-<h1 class="title is-1">Registro operazioni giornate</h1>
-<%= @days.each do |day| %>
-  <h2 class="subtitle">Giornata del <%= day.apertura.strftime('%d/%m/%Y') %></h2>
-  <% if day.chiusura.nil? %>
-    <h1 class="title is-5">Questa giornata è ancora aperta, se sei l'operatore, chiudila.</h1>
+<a href="#" onClick="printDiv()" class="button is-info"><i class="fas fa-print"></i>&nbsp;Stampa</a>
 
-    <% if current_user.admin? %>
-      <%= link_to 'Chiusura di emergenza per parroco', close_days_path(id: day.id), class: 'button is-danger' %>
+<div id="reg">
+  <h1 class="title is-1">Registro operazioni giornate anno <%= @year.anno %></h1>
+  <% if !@days.any? %>
+  <h1 class="title is-5" style="text-align:center;">Nessuna giornata ancora in registro per l'anno <%= @year.anno %></p>
+  <% else %>
+    <% @days.each do |day| %>
+      <h2 class="subtitle">Giornata del <%= day.apertura.strftime('%d/%m/%Y') %></h2>
+      <% if day.chiusura.nil? %>
+        <h1 class="title is-5">Questa giornata è ancora aperta, se sei l'operatore, chiudila.</h1>
+
+        <% if current_user.admin? %>
+          <%= link_to 'Chiusura di emergenza per parroco', close_days_path(id: day.id), class: 'button is-danger' %>
+        <% end %>
+      <% end %>
+      <p><b>Apertura:</b> <%= day.apertura %></p>
+      <p><b>Chiusura:</b> <%= day.chiusura unless day.chiusura.nil?%></p>
+      <p><b>Iscrizioni:</b> <%= day.subscriptions.count %></p>
+      <p><b>Iscritti:</b>
+        <ol>
+        <% day.subscriptions.each do |subscription| %>
+          <li><%= link_to "#{subscription.person.nome} #{subscription.person.cognome}", subscription.person %></li>
+        <% end %>
+        </ol>
+      </p>
+      <p><b>Totale raccolto:</b> €<%= day.totale_raccolto unless day.chiusura.nil?%><%= day.subscriptions.pluck(:quota).sum if day.chiusura.nil?%></p>
+    <hr />
     <% end %>
+    <h1 class="title is-5"> Totale raccolto per l'anno catechistico in corso: €<%= @days.pluck(:totale_raccolto).sum %></p>
+
   <% end %>
-  <p><b>Apertura:</b> <%= day.apertura %></p>
-  <p><b>Chiusura:</b> <%= day.chiusura unless day.chiusura.nil?%></p>
-  <p><b>Iscrizioni:</b> <%= day.subscriptions.count %></p>
-  <p><b>Iscritti:</b>
-    <ol>
-    <% day.subscriptions.each do |subscription| %>
-      <li><%= link_to "#{subscription.person.nome} #{subscription.person.cognome}", subscription.person %></li>
-    <% end %>
-    </ol>
-  </p>
-  <p><b>Totale raccolto:</b> €<%= day.totale_raccolto unless day.chiusura.nil?%><%= day.subscriptions.pluck(:quota).sum if day.chiusura.nil?%></p>
-<hr />
-<% end %>
-
-<h1 class="title is-5"> Totale raccolto per l'anno catechistico in corso: €<%= day.totale_raccolto.sum %></p>
+</div>
+    <script> 
+        function printDiv() { 
+            var divContents = document.getElementById("reg").innerHTML; 
+            var head = $('head').html(); 
+            var a = window.open('', '', 'height=500, width=500'); 
+            a.document.write(head); 
+            a.document.write(divContents); 
+            a.document.write('<br/> <p>Ultimo aggiornamento <%= DateTime.now %>'); 
+            a.document.close(); 
+            a.print(); 
+        } 
+    </script> 

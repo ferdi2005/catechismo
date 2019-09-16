@@ -17,7 +17,7 @@ class DaysController < ApplicationController
     @day.update_attribute(:chiusura, DateTime.now)
     @day.update_attribute(:totale_consegnato, @day.subscriptions.pluck(:quota).sum)
     redirect_to root_path
-    flash[:success] = "Giornata chiusa con successo. Totale giornata da consegnare a don Pasquale: #{@day.totale_consegnato}"
+    flash[:success] = "Giornata chiusa con successo. Totale giornata da consegnare al parroco: #{@day.totale_consegnato}"
   end
 
   def registro

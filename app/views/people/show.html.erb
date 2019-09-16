@@ -78,7 +78,8 @@
   </p>
 <% end %>
 <br />
-<%= link_to 'Nuova iscrizione al catechismo', subscription_path(id: person.id), class: 'button is-small' %>
+<%= link_to 'Nuova iscrizione al catechismo', subscription_path(id: @person.id), class: 'button is-medium is-primary' %>
 <br />
-<%= link_to 'Modifica dati in anagrafica', edit_person_path(@person), class: 'button is-primary' %> |
+<br />
+<%= link_to 'Modifica dati in anagrafica', edit_person_path(@person), class: 'button is-warning ' %> |
 <%= link_to 'Torna alla lista delle persone', people_path, class: 'button is-small' %>
