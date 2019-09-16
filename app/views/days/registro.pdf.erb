@@ -1,0 +1,25 @@
+<%= wicked_pdf_stylesheet_link_tag "bulma" %>
+<h1 class="title is-1">Registro operazioni giornate</h1>
+<% if !@days.any? %>
+<h1 class="title is-5" style="text-align:center;">Nessuna giornata ancora in registro per l'anno <%= @year.anno %></p>
+<% else %>
+  <% @days.each do |day| %>
+    <h2 class="subtitle">Giornata del <%= day.apertura.strftime('%d/%m/%Y') %></h2>
+    <% if day.chiusura.nil? %>
+      <h1 class="title is-5">Questa giornata è ancora aperta, se sei l'operatore, chiudila.</h1>
+    <% end %>
+    <p><b>Apertura:</b> <%= day.apertura %></p>
+    <p><b>Chiusura:</b> <%= day.chiusura unless day.chiusura.nil?%></p>
+    <p><b>Iscrizioni:</b> <%= day.subscriptions.count %></p>
+    <p><b>Iscritti:</b>
+      <ol>
+      <% day.subscriptions.each do |subscription| %>
+        <li><%= link_to "#{subscription.person.nome} #{subscription.person.cognome}", subscription.person %></li>
+      <% end %>
+      </ol>
+    </p>
+    <p><b>Totale raccolto:</b> €<%= day.totale unless day.chiusura.nil?%><%= day.subscriptions.pluck(:quota).sum if day.chiusura.nil?%></p>
+  <hr />
+  <% end %>
+
+<% end %>
