@@ -10,6 +10,7 @@
     <tr>
       <th>Nome</th>
       <th>Anno (per es. Confessione etc)</th>
+      <th>Stampa</th>
       <th colspan="2"></th>
     </tr>
   </thead>
@@ -19,6 +20,9 @@
       <tr>
         <td><%= group.nome %></td>
         <td><%= $ANNO_DI_CATECHISMO[group.anno] %></td>
+        <td><%= link_to printedgroup_path(id: group.id), class: 'button is-link', data: {turbolinks: false} do %>
+          <i class='fas fa-print'></i> Stampa elenco
+        <% end %></td>
         <td><%= link_to 'Modifica', edit_group_path(group) %></td>
         <td><%= link_to 'Elimina', group, method: :delete, data: { confirm: 'Sicuro?' } %></td>
       </tr>

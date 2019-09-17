@@ -63,7 +63,7 @@ ActiveRecord::Schema.define(version: 2019_09_16_141437) do
     t.bigint "year_id", null: false
     t.bigint "group_id"
     t.integer "anno"
-    t.integer "quota"
+    t.float "quota"
     t.boolean "quota_versata"
     t.bigint "day_id", null: false
     t.datetime "created_at", precision: 6, null: false

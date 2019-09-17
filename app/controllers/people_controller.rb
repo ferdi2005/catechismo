@@ -86,6 +86,17 @@ class PeopleController < ApplicationController
     @people = Person.all.select { |p| p.subscriptions.where(year:@year).any? }.sort_by { |p| p.cognome}
   end
 
+  def printedgroup
+    @group = Group.find_by(id: params[:id])
+    if @group
+      @people = Person.where(group: @group).select { |p| p.subscriptions.where(year:@year).any? }.sort_by { |p| p.cognome}
+      render 'printed'
+    else
+      flash[:error] = 'Nessun gruppo con questo id'
+      redirect_to root_path
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_person

@@ -12,13 +12,15 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :nome %>
-    <%= form.text_field :nome %>
+    <%= form.label :nome, class: 'label'%>
+    <%= form.text_field :nome, class: 'input' %>
   </div>
 
   <div class="field">
-    <%= form.label :anno %>
-    <%= form.select :anno, $select_anno %>
+    <%= form.label :anno, class: 'label' %>
+    <div class="select">
+      <%= form.select :anno, $select_anno%>
+    </div>
   </div>
 
   <div class="actions">
