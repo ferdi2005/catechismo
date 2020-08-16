@@ -8,7 +8,7 @@ class SubscriptionController < ApplicationController
       redirect_to root_path and return
     end
     if Subscription.find_by(year: @year, person: @person)
-      flash[:error] = "Esiste già un iscrizione per <b>#{@person.nome} #{@person.cognome}</b> per questo anno (#{@year.anno}). Annulla l'iscrizione precedente o modifica l'anno."
+      flash[:error] = "Esiste già un'iscrizione per <b>#{@person.nome} #{@person.cognome}</b> per questo anno (#{@year.anno}). Annulla l'iscrizione precedente o modifica l'anno."
       redirect_to root_path and return
     end
     @subscription = Subscription.new

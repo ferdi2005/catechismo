@@ -48,5 +48,5 @@
   <div class="buttons is-centered">
     <%= link_to 'Chiudi giornata', days_close_path, class: 'button is-warning is-large', data: {turbolinks: false, confirm: "Chiudendo la giornata dovrai consegnare €#{@day.subscriptions.pluck(:quota).sum}. Sei sicuro di voler terminare la giornata, giusto? Se sbagliato, ricontrolla le iscrizioni fatte."} %>
   </div>
-  <p>Per annullare un'operazione come un iscrizione, in caso di conteggio errato, è possibile o rivolgersi al parroco che ha sempre a disposizione la funzionalità o cliccare sul tasto "Elimina", disponibile solo <b>prima</b> di aver chiuso la giornata di riferimento.</p>
+  <p>Per annullare un'operazione come un'iscrizione, in caso di conteggio errato, è possibile o rivolgersi al parroco che ha sempre a disposizione la funzionalità o cliccare sul tasto "Elimina", disponibile solo <b>prima</b> di aver chiuso la giornata di riferimento.</p>
 <% end %>
