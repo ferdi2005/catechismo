@@ -15,5 +15,6 @@ Rails.application.routes.draw do
   get 'deletesubscription', to: 'subscription#delete'
   get 'assegnare', to: 'people#assegnare'
   get 'printedgroup', to: 'people#printedgroup'
+  get 'printpergroup', to: 'people#printpergroup'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

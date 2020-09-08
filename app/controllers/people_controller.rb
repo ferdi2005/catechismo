@@ -5,7 +5,7 @@ class PeopleController < ApplicationController
   # GET /people
   # GET /people.json
   def index
-    @people = Person.all.select { |p| p.subscriptions.where(year:@year).any? ||  p.subscriptions.count == 0 }
+    @people = Person.all.select { |p| p.subscriptions.where(year:@year).any? ||  p.subscriptions.count == 0 }.sort_by { |p| p.cognome }
   end
 
   # GET /people/1
@@ -97,6 +97,15 @@ class PeopleController < ApplicationController
     end
   end
 
+  def printpergroup
+    @pergroup = Person.all.group_by do |p|
+      if p.group.nil?
+        "Senza gruppo assegnato"
+      else
+        p.group.nome
+      end
+    end
+  end
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_person

@@ -47,8 +47,10 @@
         }
     </style>
     <h1 class="title is-2">Elenco alunni catechismo anno <%= @year.anno %> <%="- gruppo #{@group.nome}" unless @group.nil? %></h1>
+    <% @pergroup.each do |group, value| %>
     <% i = 0 %>
-    <% @people.each do |person| %>
+    <h1 class="title is-3">Elenco alunni catechismo <%=" gruppo #{group}" unless group.nil? %></h1>
+    <% value.each do |person| %>
     <% if i.even? %>
     <section class="container section">
         <div class="left-half">
@@ -131,24 +133,12 @@
                     <strong>Note:</strong>
                     <%= person.note %>
                 </p>
-
-                <% if !person.group.nil? %>
-                <p>
-                    <strong>Gruppo:</strong>
-                    <%= person.group.nome %> - <%= $ANNO_DI_CATECHISMO[person.group.anno] %>
-                </p>
-                <% elsif person.subscriptions.any? %>
-                <p>
-                    <strong>Gruppo:</strong>
-                    No - <%= $ANNO_DI_CATECHISMO[person.subscriptions.last.anno] %>
-                </p>
-                <% end %>
-
             </div>
             <% unless i.even? %>
     </section>
     <% end %>
     <% i += 1 %>
+    <% end %>
     <% end %>
 </div>
 
