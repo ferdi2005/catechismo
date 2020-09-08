@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_16_141437) do
+ActiveRecord::Schema.define(version: 2020_09_08_154841) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -45,7 +45,7 @@ ActiveRecord::Schema.define(version: 2019_09_16_141437) do
     t.string "luogo_di_nascita"
     t.string "padre"
     t.string "madre"
-    t.bigint "telefono"
+    t.string "telefono"
     t.bigint "cellulare"
     t.string "indirizzo"
     t.string "comune"
@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(version: 2019_09_16_141437) do
     t.bigint "group_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "scuola"
     t.index ["group_id"], name: "index_people_on_group_id"
   end
 
