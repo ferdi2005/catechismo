@@ -105,6 +105,16 @@ class PeopleController < ApplicationController
         p.group.nome
       end
     end
+    @pergroup.sort_by do |p, v|
+      if Group.find_by(nome: p)
+         Group.find_by(nome: p).anno
+      else
+        0
+      end
+    end
+    @pergroup.map do |p, v|
+      v.sort_by { |a| a.cognome }
+    end
   end
   private
     # Use callbacks to share common setup or constraints between actions.

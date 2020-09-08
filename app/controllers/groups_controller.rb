@@ -5,7 +5,7 @@ class GroupsController < ApplicationController
   # GET /groups
   # GET /groups.json
   def index
-    @groups = Group.where(year: @year)
+    @groups = Group.where(year: @year).sort_by{|g| g.anno}
   end
 
   # GET /groups/1

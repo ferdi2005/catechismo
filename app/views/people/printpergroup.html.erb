@@ -49,97 +49,100 @@
     <h1 class="title is-2">Elenco alunni catechismo anno <%= @year.anno %> <%="- gruppo #{@group.nome}" unless @group.nil? %></h1>
     <% @pergroup.each do |group, value| %>
     <% i = 0 %>
-    <h1 class="title is-3">Elenco alunni catechismo <%=" gruppo #{group}" unless group.nil? %></h1>
     <% value.each do |person| %>
-    <% if i.even? %>
-    <section class="container section">
-        <div class="left-half">
-            <% end %>
-            <% unless i.even? %>
-            <div class="right-half">
-                <% end %>
+    <div class="container" style="margin: 5px">
+        <h1 class="title is-4">Elenco alunni catechismo <%=" gruppo #{group}" unless group.nil? %></h1>
 
-                <p>
-                    <strong>Cognome:</strong>
-                    <%= person.cognome %>
-                </p>
+        <p>
+            <strong>Cognome:</strong>
+            <%= person.cognome %>
+        </p>
 
-                <p>
-                    <strong>Nome:</strong>
-                    <%= person.nome %>
-                </p>
+        <p>
+            <strong>Nome:</strong>
+            <%= person.nome %>
+        </p>
 
-                <p>
-                    <strong>Battesimo:</strong>
-                    <%= person.battesimo unless person.battesimosconosciuto %>
-                    <%= "Sconosciuto" if person.battesimosconosciuto %> </p>
+        <p>
+            <strong>Battesimo:</strong>
+            <%= person.battesimo unless person.battesimosconosciuto == true %>
+            <%= "Sconosciuto" if person.battesimosconosciuto == true %> </p>
 
-                <p>
-                    <strong>Parrocchia:</strong>
-                    <%= person.parrocchia %>
-                </p>
+        <p>
+            <strong>Parrocchia:</strong>
+            <%= person.parrocchia %>
+        </p>
 
-                <p>
-                    <strong>Data di nascita:</strong>
-                    <%= person.data_di_nascita %>
-                </p>
+        <p>
+            <strong>Data di nascita:</strong>
+            <%= person.data_di_nascita %>
+        </p>
 
-                <p>
-                    <strong>Luogo di nascita:</strong>
-                    <%= person.luogo_di_nascita %>
-                </p>
+        <p>
+            <strong>Luogo di nascita:</strong>
+            <%= person.luogo_di_nascita %>
+        </p>
 
-                <p>
-                    <strong>Padre:</strong>
-                    <%= person.padre %>
-                </p>
+        <p>
+            <strong>Padre:</strong>
+            <%= person.padre %>
+        </p>
 
-                <p>
-                    <strong>Madre:</strong>
-                    <%= person.madre %>
-                </p>
+        <p>
+            <strong>Madre:</strong>
+            <%= person.madre %>
+        </p>
 
-                <p>
-                    <strong>Telefono:</strong>
-                    <%= person.telefono %>
-                </p>
+        <p>
+            <strong>Telefono:</strong>
+            <%= person.telefono %>
+        </p>
 
-                <p>
-                    <strong>Cellulare:</strong>
-                    <%= person.cellulare %>
-                </p>
+        <p>
+            <strong>Cellulare:</strong>
+            <%= person.cellulare %>
+        </p>
 
-                <p>
-                    <strong>Indirizzo:</strong>
-                    <%= person.indirizzo %>
-                </p>
+        <p>
+            <strong>Indirizzo:</strong>
+            <%= person.indirizzo %>
+        </p>
 
-                <p>
-                    <strong>Comune:</strong>
-                    <%= person.comune %>
-                </p>
+        <p>
+            <strong>Comune:</strong>
+            <%= person.comune %>
+        </p>
 
-                <p>
-                    <strong>Cap:</strong>
-                    <%= person.cap %>
-                </p>
+        <p>
+            <strong>Cap:</strong>
+            <%= person.cap %>
+        </p>
 
-                <p>
-                    <strong>Scuola:</strong>
-                    <%= person.scuola %>
-                </p>
+        <p>
+            <strong>Scuola:</strong>
+            <%= person.scuola %>
+        </p>
 
-                <p>
-                    <strong>Note:</strong>
-                    <%= person.note %>
-                </p>
-            </div>
-            <% unless i.even? %>
-    </section>
-    <% end %>
-    <% i += 1 %>
-    <% end %>
-    <% end %>
+        <p>
+            <strong>Note:</strong>
+            <%= person.note %>
+        </p>
+
+        <% if !person.group.nil? %>
+        <p>
+            <strong>Gruppo:</strong>
+            <%= person.group.nome %> - <%= $ANNO_DI_CATECHISMO[person.group.anno] %>
+        </p>
+        <% elsif person.subscriptions.any? %>
+        <p>
+            <strong>Gruppo:</strong>
+            No - <%= $ANNO_DI_CATECHISMO[person.subscriptions.last.anno] %>
+        </p>
+        <% end %>
+
+    </div>
+<% end%>
+<% end %>
 </div>
 
 <script>
