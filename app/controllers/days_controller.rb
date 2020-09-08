@@ -3,6 +3,10 @@ class DaysController < ApplicationController
 
   def new
     @day = Day.create(apertura: DateTime.now, user: current_user, year: @year)
+    if !params[:hidden].blank?
+      @day.hidden = true
+      @day.save
+    end
     redirect_to root_path
     flash[:success] = 'È stata aperta una giornata, ora puoi operare. Quando hai terminato di operare, chiudi la sessione cliccando su "Chiudi giornata"'
   end
@@ -26,6 +30,6 @@ class DaysController < ApplicationController
   end
 
   def registro
-    @days = Day.where(year: @year)
+    @days = Day.where(year: @year, hidden: false)
   end
 end

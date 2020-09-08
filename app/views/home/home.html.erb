@@ -30,7 +30,7 @@
 <div class="buttons is-centered">
     <%= link_to 'Apri giornata', days_new_path, class: 'button is-warning is-large', data: { turbolinks: false}%>
 </div>
-<p>Prima di incominciare ad operare sulle iscrizioni, è necessario aprire una nuova giornata per effettuare le operazioni di registro. Puoi continuare senza aprire una giornata <%= link_to 'cliccando qui', people_path %>. Le operazioni effettuate non verranno però riportate in registro. </p>
+<p>Prima di incominciare ad operare sulle iscrizioni, è necessario aprire una nuova giornata per effettuare le operazioni di registro. Puoi continuare aprendo una giornata nulla o nascosta che si chiuderà automaticamente domani <%= link_to 'cliccando qui', days_new_path(hidden: 'hidden'), data: { turbolinks: false}%>. Le operazioni effettuate non verranno però riportate nel registro delle giornate. </p>
 <% else %>
 <h2 class="title is-3" style="text-align: center;">Cerca anagrafica</h2>
 <%= form_with url: searchpeople_path, local: true,  method: :get do |f| %>
