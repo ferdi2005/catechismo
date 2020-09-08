@@ -69,8 +69,8 @@
 
                 <p>
                     <strong>Battesimo:</strong>
-                    <%= person.battesimo %>
-                </p>
+                    <%= person.battesimo unless person.battesimosconosciuto == true %>
+                    <%= "Sconosciuto" if person.battesimosconosciuto == true %> </p>
 
                 <p>
                     <strong>Parrocchia:</strong>

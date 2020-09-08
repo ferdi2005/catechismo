@@ -13,7 +13,8 @@
 
 <p>
     <strong>Battesimo:</strong>
-    <%= @person.battesimo %>
+    <%= @person.battesimo unless @person.battesimosconosciuto == true %>
+    <%= "Sconosciuto" if @person.battesimosconosciuto == true %>
 </p>
 
 <p>
@@ -76,6 +77,10 @@
     <%= @person.note %>
 </p>
 
+<p>
+    <strong>Chi è venuto ad iscrivere?</strong>
+    <%= @person.iscrivente %>
+</p>
 
 <% if !@person.group.nil? %>
 <p>

@@ -35,7 +35,7 @@
             <td><%= link_to 'Scheda', person %></td>
             <td><%= person.nome %></td>
             <td><%= person.cognome %></td>
-            <td><%= person.battesimo %></td>
+            <td><%= person.battesimo unless person.battesimosconosciuto == true %><%= "Sconosciuto" if person.battesimosconosciuto == true %></td>
             <td><%= person.parrocchia %></td>
             <td><%= person.data_di_nascita %></td>
             <td><%= person.luogo_di_nascita %></td>

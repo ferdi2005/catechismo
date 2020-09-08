@@ -22,8 +22,30 @@
 </div>
 
 <div class="field">
+    <%= form.label "La data di battesimo è sconosciuta?", class: 'label'%>
+    <%= form.check_box :battesimosconosciuto, id: "battesimosconosciuto" %>
+</div>
+
+<script>
+$(document).ready(function(){
+    if (document.getElementById('battesimosconosciuto').checked) {
+        $('#battesimo').hide();
+    } else {
+        $('#battesimo').show();
+    }
+});
+
+    $("#battesimosconosciuto").click(function() {
+        if (document.getElementById('battesimosconosciuto').checked) {
+            $('#battesimo').hide();
+        } else {
+            $('#battesimo').show();
+        }
+    });
+</script>
+<div class="field" id="battesimo">
     <%= form.label :battesimo, class: 'label' %>
-    <%= form.date_select :battesimo, class: 'input', start_year: Date.today.year - 14 %>
+    <%= form.date_select :battesimo, class: 'input', start_year: Date.today.year - 14%>
 </div>
 
 <div class="field">
@@ -85,6 +107,12 @@
     <%= form.label :note, class: 'label' %>
     <%= form.text_area :note, class: 'input textarea' %>
 </div>
+
+<div class="field">
+    <%= form.label "Chi è venuto ad iscrivere?", class: 'label' %>
+    <%= form.text_field :iscrivente, class: 'input' %>
+</div>
+
 
 <div class="field">
     <%= form.check_box :nulla_osta, id: "nullaosta" %> <%= form.label :nulla_osta, class: 'label'%>
