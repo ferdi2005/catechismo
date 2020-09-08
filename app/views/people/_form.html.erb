@@ -1,93 +1,108 @@
 <%= form_with(model: person, local: true) do |form| %>
-  <% if person.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(person.errors.count, "error") %> prohibited this person from being saved:</h2>
+<% if person.errors.any? %>
+<div id="error_explanation">
+    <h2><%= pluralize(person.errors.count, "error") %> prohibited this person from being saved:</h2>
 
-      <ul>
+    <ul>
         <% person.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
+        <li><%= message %></li>
         <% end %>
-      </ul>
-    </div>
-  <% end %>
+    </ul>
+</div>
+<% end %>
 
-  <div class="field">
+<div class="field">
     <%= form.label :nome, class: 'label' %>
     <%= form.text_field :nome, class: 'input' %>
-  </div>
+</div>
 
-  <div class="field">
+<div class="field">
     <%= form.label :cognome, class: 'label' %>
     <%= form.text_field :cognome, class: 'input' %>
-  </div>
+</div>
 
-  <div class="field">
+<div class="field">
     <%= form.label :battesimo, class: 'label' %>
     <%= form.date_select :battesimo, class: 'input', start_year: Date.today.year - 14 %>
-  </div>
+</div>
 
-  <div class="field">
+<div class="field">
     <%= form.label :parrocchia, class: 'label' %>
     <%= form.text_field :parrocchia, class: 'input' %>
-  </div>
+</div>
 
-  <div class="field">
+<div class="field">
     <%= form.label :data_di_nascita, class: 'label' %>
     <%= form.date_select :data_di_nascita, class: 'input', start_year: Date.today.year - 14 %>
-  </div>
+</div>
 
-  <div class="field">
+<div class="field">
     <%= form.label :luogo_di_nascita, class: 'label' %>
     <%= form.text_field :luogo_di_nascita, class: 'input' %>
-  </div>
+</div>
 
-  <div class="field">
+<div class="field">
     <%= form.label :padre, class: 'label' %>
     <%= form.text_field :padre, class: 'input' %>
-  </div>
+</div>
 
-  <div class="field">
+<div class="field">
     <%= form.label :madre, class: 'label' %>
     <%= form.text_field :madre, class: 'input' %>
-  </div>
+</div>
 
-  <div class="field">
+<div class="field">
     <%= form.label :telefono, class: 'label' %>
     <%= form.number_field :telefono, class: 'input' %>
-  </div>
+</div>
 
-  <div class="field">
+<div class="field">
     <%= form.label :cellulare, class: 'label' %>
     <%= form.number_field :cellulare, class: 'input' %>
-  </div>
+</div>
 
-  <div class="field">
+<div class="field">
     <%= form.label :indirizzo, class: 'label' %>
     <%= form.text_field :indirizzo, class: 'input' %>
-  </div>
+</div>
 
-  <div class="field">
+<div class="field">
     <%= form.label :comune, class: 'label' %>
     <%= form.text_field :comune, class: 'input' %>
-  </div>
+</div>
 
-  <div class="field">
+<div class="field">
+    <%= form.label :scuola, class: 'label' %>
+    <%= form.text_field :scuola, class: 'input' %>
+</div>
+
+<div class="field">
     <%= form.label :cap, class: 'label' %>
     <%= form.number_field :cap, class: 'input' %>
-  </div>
+</div>
 
-  <div class="field">
-    <%= form.check_box :nulla_osta %>     <%= form.label :nulla_osta, class: 'label'%>
-    <p class="p small is-info">Mettere la spunta solo dopo aver ricevuto il relativo nulla osta dalla parrocchia di appartenenza. Se la parrocchia è San Girolamo, mettere la spunta</p>
-  </div>
-  <div class="field">
+<div class="field">
+    <%= form.label :note, class: 'label' %>
+    <%= form.text_area :note, class: 'input textarea' %>
+</div>
+
+<div class="field">
+    <%= form.check_box :nulla_osta, id: "nullaosta" %> <%= form.label :nulla_osta, class: 'label'%>
+    <p class="p small is-info">Togliere la spunta se non si ha ricevuto il relativo nulla osta dalla parrocchia di appartenenza.</p>
+</div>
+
+<script>
+    $('#nullaosta').prop('checked', true);
+</script>
+
+<div class="field">
     <%= form.label 'Gruppo', class: 'label' %>
     <div class="select">
-      <%= form.select(:group_id, [''] + Group.all.sort_by {|group| group.anno }.map { |group| ["#{group.nome} - #{$ANNO_DI_CATECHISMO[group.anno]}", group.id] }) %>
+        <%= form.select(:group_id, [''] + Group.all.sort_by {|group| group.anno }.map { |group| ["#{group.nome} - #{$ANNO_DI_CATECHISMO[group.anno]}", group.id] }) %>
     </div>
-  </div>
+</div>
 
-  <div class="actions">
+<div class="actions">
     <%= form.submit 'Crea scheda anagrafica', class: 'button is-primary'%>
-  </div>
+</div>
 <% end %>

@@ -3,70 +3,74 @@
 <h1 class="title">Schede anagrafiche</h1>
 
 <table class="table">
-  <thead>
-    <tr>
-      <th>N</th>
-      <th>S</th>
-      <th>Nome</th>
-      <th>Cognome</th>
-      <th>Battesimo</th>
-      <th>Parrocchia</th>
-      <th>Data di nascita</th>
-      <th>Luogo di nascita</th>
-      <th>Padre</th>
-      <th>Madre</th>
-      <th>Telefono</th>
-      <th>Cellulare</th>
-      <th>Indirizzo</th>
-      <th>Comune</th>
-      <th>Cap</th>
-      <th>Nulla osta</th>
-      <th>Gruppo di catechismo</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+    <thead>
+        <tr>
+            <th>N</th>
+            <th>S</th>
+            <th>Nome</th>
+            <th>Cognome</th>
+            <th>Battesimo</th>
+            <th>Parrocchia</th>
+            <th>Data di nascita</th>
+            <th>Luogo di nascita</th>
+            <th>Padre</th>
+            <th>Madre</th>
+            <th>Telefono</th>
+            <th>Cellulare</th>
+            <th>Indirizzo</th>
+            <th>Comune</th>
+            <th>Cap</th>
+            <th>Scuola</th>
+            <th>Nulla osta</th>
+            <th>Gruppo di catechismo</th>
+            <th colspan="3"></th>
+            <th>Note</th>
+        </tr>
+    </thead>
 
-  <tbody>
-    <% @people.each do |person| %>
-      <tr>
-        <td><%= link_to 'Nuova iscrizione', subscription_path(id: person.id), class: 'button is-small' %></td>
-        <td><%= link_to 'Scheda', person %></td>
-        <td><%= person.nome %></td>
-        <td><%= person.cognome %></td>
-        <td><%= person.battesimo %></td>
-        <td><%= person.parrocchia %></td>
-        <td><%= person.data_di_nascita %></td>
-        <td><%= person.luogo_di_nascita %></td>
-        <td><%= person.padre %></td>
-        <td><%= person.madre %></td>
-        <td><%= person.telefono %></td>
-        <td><%= person.cellulare %></td>
-        <td><%= person.indirizzo %></td>
-        <td><%= person.comune %></td>
-        <td><%= person.cap %></td>
-        <td><%= person.nulla_osta %></td>
-        <td><%= person.group.nil? ? 'Nessun gruppo assegnato' : person.group.nome %> (<%= $ANNO_DI_CATECHISMO[person.subscriptions.last.anno] if person.subscriptions.any?%>)</td>
-        <td><%= link_to 'Modifica', edit_person_path(person) %></td>
-        <td><%= link_to 'Elimina', person, method: :delete, data: { confirm: 'Sei sicuro di voler eliminare questa anagrafica?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
+    <tbody>
+        <% @people.each do |person| %>
+        <tr>
+            <td><%= link_to 'Nuova iscrizione', subscription_path(id: person.id), class: 'button is-small' %></td>
+            <td><%= link_to 'Scheda', person %></td>
+            <td><%= person.nome %></td>
+            <td><%= person.cognome %></td>
+            <td><%= person.battesimo %></td>
+            <td><%= person.parrocchia %></td>
+            <td><%= person.data_di_nascita %></td>
+            <td><%= person.luogo_di_nascita %></td>
+            <td><%= person.padre %></td>
+            <td><%= person.madre %></td>
+            <td><%= person.telefono %></td>
+            <td><%= person.cellulare %></td>
+            <td><%= person.indirizzo %></td>
+            <td><%= person.comune %></td>
+            <td><%= person.cap %></td>
+            <td><%= person.scuola %></td>
+            <td><%= person.nulla_osta %></td>
+            <td><%= person.group.nil? ? 'Nessun gruppo assegnato' : person.group.nome %> (<%= $ANNO_DI_CATECHISMO[person.subscriptions.last.anno] if person.subscriptions.any?%>)</td>
+            <td><%= link_to 'Modifica', edit_person_path(person) %></td>
+            <td><%= link_to 'Elimina', person, method: :delete, data: { confirm: 'Sei sicuro di voler eliminare questa anagrafica?' } %></td>
+            <td><%= person.note %></td>
+        </tr>
+        <% end %>
+    </tbody>
 </table>
 
 <br>
 
 <%= link_to 'Nuova anagrafica', new_person_path, class: 'button is-primary' %>
 
-  <h2 class="title is-3" style="text-align: center;">Cerca anagrafica</h2>
-  <%= form_with url: searchpeople_path, local: true,  method: :get do |f| %>
-    <div class="field">
-      <%= f.label :nome, class: 'label' %>
-      <%= f.text_field :nome, class: 'input' %>
-    </div>
-    <div class="field">
-      <%= f.label :cognome, class: 'label' %>
-      <%= f.text_field :cognome, class: 'input' %>
-    </div>
-    
-    <%= f.submit 'Cerca', class: 'button is-primary' %>
-  <% end %>
+<h2 class="title is-3" style="text-align: center;">Cerca anagrafica</h2>
+<%= form_with url: searchpeople_path, local: true,  method: :get do |f| %>
+<div class="field">
+    <%= f.label :nome, class: 'label' %>
+    <%= f.text_field :nome, class: 'input' %>
+</div>
+<div class="field">
+    <%= f.label :cognome, class: 'label' %>
+    <%= f.text_field :cognome, class: 'input' %>
+</div>
+
+<%= f.submit 'Cerca', class: 'button is-primary' %>
+<% end %>

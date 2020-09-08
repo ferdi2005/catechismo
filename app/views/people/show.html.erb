@@ -2,102 +2,113 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Nome:</strong>
-  <%= @person.nome %>
+    <strong>Nome:</strong>
+    <%= @person.nome %>
 </p>
 
 <p>
-  <strong>Cognome:</strong>
-  <%= @person.cognome %>
+    <strong>Cognome:</strong>
+    <%= @person.cognome %>
 </p>
 
 <p>
-  <strong>Battesimo:</strong>
-  <%= @person.battesimo %>
+    <strong>Battesimo:</strong>
+    <%= @person.battesimo %>
 </p>
 
 <p>
-  <strong>Parrocchia:</strong>
-  <%= @person.parrocchia %>
+    <strong>Parrocchia:</strong>
+    <%= @person.parrocchia %>
 </p>
 
 <p>
-  <strong>Data di nascita:</strong>
-  <%= @person.data_di_nascita %>
+    <strong>Data di nascita:</strong>
+    <%= @person.data_di_nascita %>
 </p>
 
 <p>
-  <strong>Luogo di nascita:</strong>
-  <%= @person.luogo_di_nascita %>
+    <strong>Luogo di nascita:</strong>
+    <%= @person.luogo_di_nascita %>
 </p>
 
 <p>
-  <strong>Padre:</strong>
-  <%= @person.padre %>
+    <strong>Padre:</strong>
+    <%= @person.padre %>
 </p>
 
 <p>
-  <strong>Madre:</strong>
-  <%= @person.madre %>
+    <strong>Madre:</strong>
+    <%= @person.madre %>
 </p>
 
 <p>
-  <strong>Telefono:</strong>
-  <%= @person.telefono %>
+    <strong>Telefono:</strong>
+    <%= @person.telefono %>
 </p>
 
 <p>
-  <strong>Cellulare:</strong>
-  <%= @person.cellulare %>
+    <strong>Cellulare:</strong>
+    <%= @person.cellulare %>
 </p>
 
 <p>
-  <strong>Indirizzo:</strong>
-  <%= @person.indirizzo %>
+    <strong>Indirizzo:</strong>
+    <%= @person.indirizzo %>
 </p>
 
 <p>
-  <strong>Comune:</strong>
-  <%= @person.comune %>
+    <strong>Comune:</strong>
+    <%= @person.comune %>
 </p>
 
 <p>
-  <strong>Cap:</strong>
-  <%= @person.cap %>
+    <strong>Cap:</strong>
+    <%= @person.cap %>
 </p>
+
+<p>
+    <strong>Scuola:</strong>
+    <%= @person.scuola %>
+</p>
+
+<p>
+    <strong>Scuola:</strong>
+    <%= @person.note %>
+</p>
+
 
 <% if !@person.group.nil? %>
 <p>
     <strong>Gruppo di catechismo:</strong>
     <%= @person.group.nome %>
-  </p>
+</p>
 <p>
     <strong>Anno:</strong>
-     <%= $ANNO_DI_CATECHISMO[@person.group.anno] %>
-  </p>
+    <%= $ANNO_DI_CATECHISMO[@person.group.anno] %>
+</p>
 <% elsif @person.subscriptions.any? %>
-  <p>
+<p>
     <strong>Gruppo di catechismo:</strong>
     Nessun gruppo assegnato - <%= $ANNO_DI_CATECHISMO[@person.subscriptions.last.anno] %>
-  </p>
+</p>
 
-  <p>
+<p>
     <strong>Anno:</strong>
     <%= $ANNO_DI_CATECHISMO[@person.subscriptions.last.anno] %>
-  </p>
+</p>
 
 <% end %>
 <br />
 <h1 class="subtitle">Iscrizioni al catechismo</h1>
 <% @person.subscriptions.each do |subscription| %>
-  <p><b>Anno:</b><%= $ANNO_DI_CATECHISMO[subscription.anno] %></p>
-  <p><b>Gruppo di catechismo:</b><%= subscription.group.nome unless subscription.group.nil?%><%= 'Assegnato successivamente' if subscription.group.nil? %></p>
-  <p><b>Quota (<%= subscription.quota_versata ? 'Sì' : 'No'%>):</b>€<%= subscription.quota %></p>
-  <p><b>Giorno di iscrizione:</b> <%=  subscription.created_at.strftime('%d/%m/%Y') %></p>
-  <p><b>Anno catechistico:</b> <%= subscription.year.anno %></p>
-  <p><b>Operatore:</b><%= subscription.day.user.username %></p>
-  <%= link_to 'Annulla', deletesubscription_path(id: subscription.id), data: {confirm: "Sei sicuro di voler eliminare l'iscrizione di #{@person.nome} #{@person.cognome} per il #{$ANNO_DI_CATECHISMO[subscription.anno]}? #{"La quota è stata versata correttamente, cancellando l'iscrizione annullerai il versamento." if subscription.quota_versata?}"}, class: 'button is-danger is-small' if current_user.admin? || (subscription.day.chiusura.nil? && subscription.day.user == current_user) %>
-  <hr />
+<p><b>Anno:</b><%= $ANNO_DI_CATECHISMO[subscription.anno] %></p>
+<p><b>Gruppo di catechismo:</b><%= subscription.group.nome unless subscription.group.nil?%><%= 'Assegnato successivamente' if subscription.group.nil? %></p>
+<p><b>Quota (<%= subscription.quota_versata ? 'Sì' : 'No'%>):</b>€<%= subscription.quota %></p>
+<p><b>Giorno di iscrizione:</b> <%=  subscription.created_at.strftime('%d/%m/%Y') %></p>
+<p><b>Anno catechistico:</b> <%= subscription.year.anno %></p>
+<p><b>Operatore:</b><%= subscription.day.user.username %></p>
+<%= link_to 'Annulla', deletesubscription_path(id: subscription.id), data: {confirm: "Sei sicuro di voler eliminare l'iscrizione di #{@person.nome} #{@person.cognome} per il #{$ANNO_DI_CATECHISMO[subscription.anno]}? #{"La quota è stata versata correttamente, cancellando l'iscrizione annullerai il versamento." if subscription.quota_versata?}"}, class: 'button is-danger is-small' if current_user.admin? || (subscription.day.chiusura.nil? && subscription.day.user == current_user) %>
+<hr />
 <% end %>
 <%= link_to 'Nuova iscrizione al catechismo', subscription_path(id: @person.id), class: 'button is-medium is-primary' %>
 <br />
